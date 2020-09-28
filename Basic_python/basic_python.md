@@ -264,6 +264,15 @@ def func():
     print(list2)
     ```
 
+- `join()`
+
+    : list to string
+
+    ```python
+    list2 = ['A', 'B', 'C']
+    print(''.join(list2))
+    ```
+
 - List comprehension
 
     ```python
