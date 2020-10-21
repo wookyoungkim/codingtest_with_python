@@ -41,12 +41,17 @@ def check(lab):
 
 def solution():
     wall = list(itertools.combinations(empty, 3))
+    global answer
     for w in wall:
         viruslab = copy.deepcopy(lab)
+        count = 0
         for i in range(3):
             viruslab[w[i][0]][w[i][1]] = 1
-        print(lab)
+        #print(lab)
         check(viruslab)
+        for i in range(len(viruslab)):
+            count += viruslab[i].count(0)
+        answer = max(answer, count)
         for i in range(3):
             viruslab[w[i][0]][w[i][1]] = 0
 
