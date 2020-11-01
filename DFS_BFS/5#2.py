@@ -37,7 +37,7 @@ def check(lab):
         if j+1<m and lab[i][j+1] == 0:
             lab[i][j+1] = 2
             queue.append([i, j+1])
-    print(lab)
+    #print(lab)
 
 def solution():
     wall = list(itertools.combinations(empty, 3))
