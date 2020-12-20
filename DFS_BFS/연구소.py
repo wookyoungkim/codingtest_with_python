@@ -47,7 +47,7 @@ def bfs(lab, virus_pos):
         lab[x][y] = 0
     return count
 
-
+#itertools같은 경우 시간초과가 자주 발생하니까 backtracking 등으로 combination을 대체할 수 있다
 walls = list(combinations(empty_pos, 3))
 
 for wall in walls:
