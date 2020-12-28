@@ -21,18 +21,21 @@ for i in range(n):
             tmp[j] = '.'
     Map.append(tmp)
 
+#좌표가 범위 내에 있는지 검사
 def in_bound(x, y):
     if x in range(0, n) and y in range(0,m):
         return True
     else:
         return False
 
+#보드를 dir방향으로 기울이기
 def move(red_pos, blue_pos, dir):
     red_x, red_y = red_pos
     blue_x, blue_y = blue_pos
     r_cnt, b_cnt = 0, 0
     r_out, b_out = False, False
 
+    #빨간공 움직이기
     nx, ny = red_x+dx[dir], red_y+dy[dir]
     while in_bound(nx, ny):
         r_cnt += 1
@@ -41,10 +44,12 @@ def move(red_pos, blue_pos, dir):
             red_pos = (red_x, red_y)
             r_cnt -= 1
             break
+        #구멍에 빠졌을때
         elif Map[nx][ny] == 'O':
             red_pos = (nx, ny)
             r_out = True
             break
+        #아니면 전진
         else:
             red_x, red_y = nx, ny
             nx, ny = red_x + dx[dir], red_y + dy[dir]
