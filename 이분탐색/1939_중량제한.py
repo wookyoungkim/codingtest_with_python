@@ -20,13 +20,14 @@ def bfs(mid):
         start = queue.popleft()
         if start == destination:
             return True
+        #아직 방문하지 않고, 운반가능한 무게가 운반하려는 무게보다 크거나 같은 섬
         for island_B, weight in islands[start]:
             if visit[island_B] == 0 and mid <= weight:
                 queue.append(island_B)
                 visit[island_B] = 1
     return False
 
-#이분탐색 -> 대상 : 무게
+#이분탐색 -> 대상 : 옮길 수 있는 최대 중량
 min_val, max_val = 1, 1000000000
 while min_val <= max_val:
     visit = [0 for _ in range(N+1)]

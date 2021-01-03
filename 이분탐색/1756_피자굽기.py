@@ -6,11 +6,11 @@ D, N = map(int, input().split())
 oven = list(map(int, input().split()))
 pizza = list(map(int, input().split()))
 
-print(oven)
 #지금까지 나온 오븐의 지름 중 가장 작은 값으로 바꿔줌
+# 소팅된 결과를 얻을 수 있음
 for i in range(1, D):
     oven[i] = min(oven[i], oven[i-1])
-print(oven) 
+
 count = 0
 last_idx = D-1
 
