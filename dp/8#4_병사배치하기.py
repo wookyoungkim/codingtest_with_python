@@ -12,7 +12,6 @@ dp = [1]*(N+1)
 #LIS 알고리즘
 for i in range(1, N):
     for j in range(0, i):
-        print(dp)
         if soldiers[j] < soldiers[i]:
             dp[i] = max(dp[i], dp[j]+1)
 
