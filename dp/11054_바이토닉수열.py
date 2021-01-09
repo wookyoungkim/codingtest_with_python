@@ -13,6 +13,7 @@ for k in range(N):
     seq2.reverse()
     dp1 = [1]*(len(seq1)+1)
     dp2 = [1]*(len(seq2)+1)
+    print(seq1, seq2)
 
     #LIS 알고리즘
     for i in range(1, len(seq1)):
