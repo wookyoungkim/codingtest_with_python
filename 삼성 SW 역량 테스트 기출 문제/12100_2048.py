@@ -24,7 +24,7 @@ def move(board, dir):
     else:
         start, end, inc = N-1, -1, -1
     # 각각의 칸에 대해서
-    for i in range(start, end, in1c):
+    for i in range(start, end, inc):
         for j in range(start, end, inc):
             if board[i][j] != 0:
                 x, y = i, j

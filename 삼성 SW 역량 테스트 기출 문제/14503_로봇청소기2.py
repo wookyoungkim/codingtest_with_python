@@ -19,22 +19,23 @@ def in_range(x, y):
 answer = 0
 
 while 1:
-    #clean
+    #1. clean
     if board[x][y] == 0:
         board[x][y] = 2
         answer += 1
     clean_flag = 0
-    #check from left
+    #2. check from left
     for i in range(4):
         next_dir = (dir+3)%4
         nx, ny = x+dx[next_dir], y+dy[next_dir]
         if in_range(nx, ny) and board[nx][ny] == 0:
-            #in range and has not been cleaned
+            #2-1. in range and has not been cleaned
             dir = next_dir
             x, y = nx, ny
             clean_flag = 1
             break
         else:
+            #2-2. already cleaned
             dir = next_dir
     if clean_flag == 1:
         continue
@@ -42,9 +43,10 @@ while 1:
         behind = (dir+2)%4
         bx, by = x+dx[behind], y+dy[behind]
         if board[bx][by] == 1:
-            # if all 4 spaces are cleaned and behind is wall
+            #2-4. if all 4 spaces are cleaned and behind is a wall
             break
         else:
+            #2-3. if all 4 spaces are cleaned and behind is not a wall
             x, y = bx, by
 
 print(answer)
