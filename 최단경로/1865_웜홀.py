@@ -3,9 +3,11 @@ input = sys.stdin.readline
 INF = int(1e9)
 
 def bf():
+    dist[1] = 0
     for i in range(n):
         #n번의 라운드 반복
         for now, next_node, cost in edges:
+            print(dist)
             if dist[next_node] > dist[now]+cost:
                 dist[next_node] = dist[now]+cost
                 if i == n-1:
