@@ -1,6 +1,7 @@
 #팀결성
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(100000)
 
 def find_parents(parents, x):
     #루트노드를 찾을때까지
@@ -20,7 +21,7 @@ def union(a, b):
 
 n, m = map(int, input().split())
 parents = [i for i in range(n+1)]
-print(parents)
+#print(parents)
 for i in range(m):
     cal, a, b = map(int, input().split())
     if cal == 0:
