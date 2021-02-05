@@ -17,6 +17,7 @@ def in_range(x, y):
 
 def find_island(x, y, num):
     queue = deque([(x, y)])
+    board[x][y] = num
 
     while queue:
         x, y = queue.popleft()
@@ -65,12 +66,15 @@ def find_parent(parent, x):
 
 # 두 원소가 속한 집합을 합치기
 def union_parent(parent, a, b):
+    global connected
     a = find_parent(parent, a)
     b = find_parent(parent, b)
     if a < b:
         parent[b] = a
     else:
         parent[a] = b
+    connected += 1
+    
                 
 # 섬끼리 구분짓기
 num = 2
@@ -79,9 +83,7 @@ for i in range(n):
         if board[i][j] == 1:
             find_island(i, j, num)
             num += 1
-
-distance = defaultdict()
-
+distance = {}
 #섬끼리 연결하기
 for i in range(n):
     for j in range(m):
@@ -90,15 +92,13 @@ for i in range(n):
             #바다 옆이면
             find_bridge(board[i][j], i, j)
 
-if len(distance) < num-3:
-    print(-1)
-    sys.exit(0)
 # 크루스칼로 섬들끼리 연결하는 최소 비용 찾기
 edges = []
+connected = 0
 result = 0
-parent = [0] * (num + 1)
+parent = [0] * num
 
-for i in range(1, num + 1):
+for i in range(1, num):
     parent[i] = i
 
 for key, val in distance.items():
@@ -112,7 +112,8 @@ for edge in edges:
         union_parent(parent, a, b)
         result += cost
 
-if result == 0:
-    print(-1)
-else:
+
+if connected == num -3:
     print(result)
+else:
+    print(-1)
