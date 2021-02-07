@@ -30,4 +30,4 @@ def solution(n):
         answer += i
     return answer
 
-print(solution(5))
+print(solution(6))
