@@ -4,7 +4,7 @@ def solution(orders, course):
     answer = []
     orders.sort(key=lambda x:len(x), reverse=True)
     max_len = len(orders[0])
-    
+
     for c in course:
         if c <= max_len:
             dic = {}
