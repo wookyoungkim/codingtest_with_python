@@ -39,8 +39,7 @@ def solution(n, s, a, b, fares):
         if i != s:
             cost += distance[i]
             dijkstra(i, distance_a, graph)
-            dijkstra(i, distance_b, graph)
-            cost = cost + distance_a[a] + distance_b[b]
+            cost = cost + distance_a[a] + distance_a[b]
             answer = min(answer, cost)
     return answer
 
