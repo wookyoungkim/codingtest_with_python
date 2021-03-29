@@ -1,77 +1,61 @@
 import sys
-import copy
 
 input = sys.stdin.readline
 
-answer = 0
-N, L = map(int, input().split())
-board = []
-for _ in range(N):
-    board.append(list(map(int, input().split())))
-
-def possible(road):
-    count = 0
-    flag = False
-    slope = []
-    s = []
+#경사로 놓을 수 있는지?
+def check(b):
+    # 경사로 놓였으면 1, 아니면 0
+    slope = [0 for _ in range(N)]
     for i in range(N-1):
-        print(s)
-        if flag == True:
-            #road[i] == road[i+1]-1이라서 L개 넘는지 세는 경우
-            if count == L:
-                count = 0
-                flag = False
-                s = []
-                slope += s
-            elif road[i] == road[i+1]:
-                count += 1
-                s.append(i)
-            else:
-                return []
+        if abs(b[i]-b[i+1]) > 1:
+            # 1이상 차이나면 놓을 수 없음
+            return False
+        
+        if b[i] == b[i+1]:
+            continue
+
+        # 내리막길 경사로
+        if b[i] > b[i+1]:
+            pre = b[i+1]
+            for j in range(i+1,i+1+L):
+                if 0 <= j < N:
+                    # 경사로를 설치 할 길이 같은 높이가 아닐 경우
+                    if b[j] != pre: 
+                        return False
+                    # 이미 경사로 설치 한 경우
+                    if slope[j] == 1: 
+                        return False
+                    # 경사로 설치
+                    slope[j]=1
+                else: 
+                    return False
+        # 오르막길 경사로
         else:
-            s.append(i)
-            if road[i] == road[i+1]:
-                count += 1
-            elif road[i]+1 == road[i+1]:
-                #왼쪽에 경사로 놓을 수 있는지?
-                if count+1 >= L:
-                    slope.append(s)
-                    s = []
-                    count = 0
+            pre = b[i]
+            for j in range(i,i-L,-1):
+                if 0 <= j < N:
+                    # 경사로를 설치 할 길이 같은 높이가 아닐 경우
+                    if b[j] != pre: 
+                        return False
+                    # 이미 경사로 설치 한 경우
+                    if slope[j] == 1: 
+                        return False
+                    # 경사로 설치
+                    slope[j] = 1
                 else:
-                    return []
-            elif road[i] == road[i+1]+1:
-                #오른쪽에 경사로를 놓을 수 있는지?
-                flag = True
-            else:
-                return []
-    return slope
+                    return False
+    return True
 
-print(possible(board[3]))
+N, L = map(int, input().split())
+board = [list(map(int, input().split())) for _ in range(N)]
+result = 0
+for b in board:
+    if check(b): 
+        #경사로 놓을 수 있는지
+        result+=1
 
-# {horizontal}의 road번째 길에 경사로 놓기
-def dfs(horizontal, road, slope, count):
-    if not horizontal and road == N:
-        answer = max(answer, count)
-        return 
-
-    if horizontal:
-        result = copy.deepcopy(board[road])
-    else:
-        result = []
-        for i in range(N):
-            result.append(board[i][road])
-
-    #가로 road번째 길 검사하기
-    slopes, pos = possible(result)
-    if pos:
-        #경사로 놓기
-        if road+1 >= N:
-            dfs(0, 0, slope+slopes, count)
-        else:
-            dfs(horizontal, road + 1, slope+slopes, count)
-    if road+1 >= N:
-            dfs(0, 0, slope, count)
-    else:
-        dfs(horizontal, road + 1, slope, count)
-#dfs(0, 0, [], 0)
+#세로 길 확인하기
+for b in list(map(list,zip(*board))):
+    if check(b): 
+        result+=1
+print(result)
