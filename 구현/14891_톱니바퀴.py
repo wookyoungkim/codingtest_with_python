@@ -26,54 +26,30 @@ def solution():
         rotations.append(list(map(int, input().split())))
     
     for num, dir in rotations:
-        if dir == 1:
-            #clockwise
-            clo, anti = [num], []
-            # 1. 왼쪽도 돌려야 하는지 확인
-            if num-1 >= 1 and sawtooth[num][6] != sawtooth[num-1][2]:
-                anti.append(num-1)
-                if num-2 >= 1 and sawtooth[num-1][6] != sawtooth[num-2][2]:
-                    clo.append(num-2)
-                    if num-3 >= 1 and sawtooth[num-2][6] != sawtooth[num-3][2]:
-                        anti.append(num-3)
-    
-            # 2. 오른쪽도 돌려야 하는지 확인
-            if num+1 <= 4 and sawtooth[num][2] != sawtooth[num+1][6]:
-                anti.append(num+1)
-                if num+2 <= 4 and sawtooth[num+1][2] != sawtooth[num+2][6]:
-                    clo.append(num+2)
-                    if num+3 <= 4 and sawtooth[num+2][2] != sawtooth[num+3][6]:
-                        anti.append(num+3)
+        rotate = {-1:[], 1:[]}
+        rotate[dir].append(num)
+        # 1. 왼쪽도 돌려야 하는지 확인
+        if num-1 >= 1 and sawtooth[num][6] != sawtooth[num-1][2]:
+            rotate[-1 * dir].append(num-1)
+            if num-2 >= 1 and sawtooth[num-1][6] != sawtooth[num-2][2]:
+                rotate[dir].append(num-2)
+                if num-3 >= 1 and sawtooth[num-2][6] != sawtooth[num-3][2]:
+                    rotate[-1 * dir].append(num-3)
 
-            # 3. 회전
-            for c in clo:
-                    clockwise(sawtooth[c])
-            for a in anti:
-                anticlockwise(sawtooth[a])
-            
-        else:
-            clo, anti = [], [num]
-            # 1. 왼쪽도 돌려야 하는지 확인
-            if num-1 >= 1 and sawtooth[num][6] != sawtooth[num-1][2]:
-                clo.append(num-1)
-                if num-2 >= 1 and sawtooth[num-1][6] != sawtooth[num-2][2]:
-                    anti.append(num-2)
-                    if num-3 >= 1 and sawtooth[num-2][6] != sawtooth[num-3][2]:
-                        clo.append(num-3)
-    
-            # 2. 오른쪽도 돌려야 하는지 확인
-            if num+1 <= 4 and sawtooth[num][2] != sawtooth[num+1][6]:
-                clo.append(num+1)
-                if num+2 <= 4 and sawtooth[num+1][2] != sawtooth[num+2][6]:
-                    anti.append(num+2)
-                    if num+3 <= 4 and sawtooth[num+2][2] != sawtooth[num+3][6]:
-                        clo.append(num+3)
+        # 2. 오른쪽도 돌려야 하는지 확인
+        if num+1 <= 4 and sawtooth[num][2] != sawtooth[num+1][6]:
+            rotate[-1 * dir].append(num+1)
+            if num+2 <= 4 and sawtooth[num+1][2] != sawtooth[num+2][6]:
+                rotate[dir].append(num+2)
+                if num+3 <= 4 and sawtooth[num+2][2] != sawtooth[num+3][6]:
+                    rotate[-1 * dir].append(num+3)
 
-            # 3. 회전
-            for c in clo:
-                    clockwise(sawtooth[c])
-            for a in anti:
-                anticlockwise(sawtooth[a])
+        # 3. 회전
+        for r in rotate[1]:
+                clockwise(sawtooth[r])
+        for r in rotate[-1]:
+            anticlockwise(sawtooth[r])
+
     result = 0
 
     for i in range(len(sawtooth)-1):
