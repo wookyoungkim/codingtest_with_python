@@ -7,14 +7,12 @@ def anticlockwise(sawtooth):
     for i in range(len(sawtooth)-1):
         sawtooth[i] = sawtooth[i+1]
     sawtooth[-1] = zero
-    #print(sawtooth)
 
 def clockwise(sawtooth):
     zero = sawtooth[-1]
     for i in range(len(sawtooth)-1, 0, -1):
         sawtooth[i] = sawtooth[i-1]
     sawtooth[0] = zero
-    #print(sawtooth)
 
 def solution():
     sawtooth = [[]]

@@ -52,12 +52,16 @@ def check(num, board, d, x, y):
                 nx, ny = nx+dx[(d+3)%4], ny+dy[(d+3)%4]
             else:
                 break
+    for b in board:
+        print(b)
+    print()
 
 def bfs(board, cctv):
     queue = deque([(board, cctv)])
     global minval
     while queue:
         b, c = queue.popleft()
+        print(b, c)
         if not c:
             count = 0
             for i in range(len(b)):
@@ -98,5 +102,8 @@ for i in range(N):
         if tmp[j] in range(1, 6):
             cctv.append((tmp[j], i, j))
     board.append(tmp)
+for b in board:
+    print(b)
+print()
 bfs(board, cctv)
 print(minval)
