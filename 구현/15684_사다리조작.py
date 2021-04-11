@@ -33,7 +33,7 @@ def dfs(count, x, y):
     for i in range(x, H):
         k = y if i == x else 0
         for j in range(k, N-1):
-            if board[i][j] == 0 and board[i][j] == 0:
+            if board[i][j] == 0 and board[i][j+1] == 0:
                 board[i][j] = 1
                 dfs(count+1, i, j+2)
                 board[i][j] = 0
