@@ -54,13 +54,6 @@ for move in range(K):
                 else:
                     board[i][j] = []
 
-    # 3. fireball 정보 갱신
-    fireball = []
-    for i in range(N):
-        for j in range(N):
-            if board[i][j]:
-                fireball += board[i][j]
-
 answer = 0
 for i in range(N):
     for j in range(N):
