@@ -21,7 +21,7 @@ def operationR(board):
                 else:
                     count[i][board[i][j]] = 1
     
-    # 2. dic을 value 기준 오름차순, key 기준 내림차순 정렬하기
+    # 2. dic을 value 기준 오름차순, key 기준 오름차순 정렬하기
     maxlen = 0
     for i in range(len(count)):
         sort = sorted(count[i].items(), key= lambda x:[x[1], x[0]])
@@ -58,7 +58,7 @@ def operationC(board):
                 else:
                     count[i][new_board[i][j]] = 1
     
-    # 2. dic을 value 기준 오름차순, key 기준 내림차순 정렬하기
+    # 2. dic을 value 기준 오름차순, key 기준 오름차순 정렬하기
     maxlen = 0
     for i in range(len(count)):
         sort = sorted(count[i].items(), key= lambda x:[x[1], x[0]])
