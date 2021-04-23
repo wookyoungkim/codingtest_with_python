@@ -34,23 +34,25 @@ def find(shark, d):
             nx, ny = x+dx[i], y+dy[i]
             if in_bound(nx, ny) and visited[x][y]+1 < visited[nx][ny]:
                 if board[nx][ny] != 0 and board[nx][ny] < shark_weight:
-                    # 작으면 이 물고기 먹기
-                    return visited[x][y]+1, nx, ny
-                    # if visited[x][y]+1 < min_count:
-                    #     min_count = visited[x][y]+1
-                    #     n_x, n_y = nx, ny
-                    #     visited[nx][ny] = visited[x][y]+1
-                    # elif visited[x][y]+1 == min_count:
-                    #     if n_x > nx:
-                    #         n_x, n_y = nx, ny
-                    #         visited[nx][ny] = visited[x][y]+1
-                    #     elif n_x == nx and n_y > ny:
-                    #         n_x, n_y = nx, ny
-                    #         visited[nx][ny] = visited[x][y]+1
+                    # 작으면 이 물고기 먹기 -> 제일 위쪽 왼쪽에 있는거
+                    if visited[x][y]+1 < min_count:
+                        min_count = visited[x][y]+1
+                        n_x, n_y = nx, ny
+                        visited[nx][ny] = visited[x][y]+1
+                    elif visited[x][y]+1 == min_count:
+                        if n_x > nx:
+                            n_x, n_y = nx, ny
+                            visited[nx][ny] = visited[x][y]+1
+                        elif n_x == nx and n_y > ny:
+                            n_x, n_y = nx, ny
+                            visited[nx][ny] = visited[x][y]+1
                 elif board[nx][ny] == 0 or board[nx][ny] == shark_weight:
-                    # 이동가능하면 이동
-                    visited[nx][ny] = visited[x][y] + 1
-                    queue.append([nx,ny])
+                    if visited[x][y]+1 > min_count:
+                        break
+                    else:
+                        # 이동가능하면 이동
+                        visited[nx][ny] = visited[x][y] + 1
+                        queue.append([nx,ny])
 
     if min_count != float('inf'):
         return min_count, n_x, n_y            
