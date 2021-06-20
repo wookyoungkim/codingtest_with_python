@@ -1,5 +1,6 @@
 from collections import defaultdict, deque
 
+# 트랩을 밟고 다시 되돌아 가는 부분때문에 bfs로 접근했던것같다 ,, 
 def bfs(n, start, end, roads, traps):
     queue = deque()
     queue.append([start, 0])

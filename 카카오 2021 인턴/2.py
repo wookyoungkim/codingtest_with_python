@@ -1,5 +1,5 @@
 from collections import deque
-
+# BFS로 풀이
 dx = [-1, 0, 1, 0]
 dy = [0, -1, 0, 1]
 
@@ -11,8 +11,8 @@ def in_bound(x, y):
 def bfs(i, j, place):
     # (x,y)석에 앉은 사람과 다른 지원자 간의 거리 체크하기
     queue = deque()
-    queue.append([i,j,0])
-    visited = [[0 for _ in range(5)] for _ in range(5)]
+    queue.append([i,j,0]) # queue에는 검사의 기준이 되는 좌표+count를 넣음
+    visited = [[0 for _ in range(5)] for _ in range(5)] # 방문 여부를 체크
     visited[i][j] = 1
     
     while queue:
@@ -25,6 +25,7 @@ def bfs(i, j, place):
                     # 맨해튼 거리 2 이하이면
                     if count + 1 <= 2:
                         return False
+                # 빈칸에 대해서만 count를 
                 elif place[nx][ny] == "O":
                     visited[nx][ny] = 1
                     queue.append([nx,ny,count+1])
@@ -36,11 +37,13 @@ def solution(places):
     for place in places:
         flag = True
         for i in range(5):
+            place[i] = list(place[i])
             for j in range(5):
                 if place[i][j] == "P":
                     if bfs(i,j,place) == False:
                         flag = False
                         break
+                    place[i][j] = "O"
             if flag == False:
                 break
         if flag == False:

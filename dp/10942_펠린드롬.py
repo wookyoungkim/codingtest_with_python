@@ -18,7 +18,7 @@ for i in range(N-1):
 for l in range(2, N):
     # 길이가 3 이상
     for i in range(N-l):
-        # 처음 문자 == 마지막 문자 && dp[처음+1][마지막-1]
+        # 처음 문자 == 마지막 문자 && 사이가 펠린드롬
         if nums[i] == nums[i+l] and dp[i+1][i+l-1] == 1:
             dp[i][i+l] = 1
 
